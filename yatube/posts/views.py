@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Group, Comment, Follow
 from .forms import PostForm, CommentForm
 from .utils import paginator_func
-from django.views.decorators.cache import cache_page
 
 User = get_user_model()
 
@@ -36,7 +35,8 @@ def profile(request, username):
     post_list = (author.posts.select_related('group')
                  .all())
     page_obj = paginator_func(request, post_list)
-    following = (author.following.filter(user=request.user.id).exists() and request.user.is_authenticated)
+    following = (author.following.filter(user=request.user.id).exists()
+                 and request.user.is_authenticated)
     context = {'author': author,
                'page_obj': page_obj,
                'following': following}
