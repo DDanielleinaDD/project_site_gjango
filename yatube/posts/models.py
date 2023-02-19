@@ -13,6 +13,9 @@ class Group(models.Model):
     description = models.TextField(verbose_name='Описание группы')
 
     class Meta:
+        indexes = [
+            models.Index(fields=['slug'], name='slug_idx'),
+        ]
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
 
@@ -23,8 +26,6 @@ class Group(models.Model):
 class Post(CreatedModel):
     text = models.TextField(verbose_name='Текст поста',
                             help_text='Напишите ваш пост в этом окне')
-    # pub_date = models.DateTimeField(auto_now_add=True,
-    #                                 verbose_name='Дата и время публикации')
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -72,11 +73,11 @@ class Comment(CreatedModel):
     )
     text = models.TextField(verbose_name='Текст комментария',
                             help_text='Напишите ваш комментарий в этом окне')
-    # created = models.DateTimeField(auto_now_add=True,
-    #                                 verbose_name='Дата и время публикации')
 
     class Meta:
         ordering = ['-pub_date']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
         return self.text
@@ -92,3 +93,7 @@ class Follow(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='following')
+
+    class Meta:
+        models.UniqueConstraint(fields=['user', 'author'],
+                                name='subscribe_unique')

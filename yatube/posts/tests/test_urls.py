@@ -24,7 +24,8 @@ class PostURLTests(TestCase):
             f'/profile/{cls.user.username}/': 'posts/profile.html',
             f'/posts/{cls.post.id}/': 'posts/post_detail.html',
             f'/posts/{cls.post.id}/edit/': 'posts/create_post.html',
-            '/create/': 'posts/create_post.html'}
+            '/create/': 'posts/create_post.html',
+            '/follow/': 'posts/follow.html'}
 
     def setUp(self):
         self.guest_client = Client()

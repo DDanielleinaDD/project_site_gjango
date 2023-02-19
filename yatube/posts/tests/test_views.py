@@ -1,17 +1,14 @@
-import shutil
-import tempfile
-
+from . import TestCaseWithTmpMedia
 from django.urls import reverse
 from django import forms
-from django.conf import settings
 from django.core.cache import cache
-from django.test import TestCase, Client, override_settings
+from django.test import TestCase, Client
 from django.core.files.uploadedfile import SimpleUploadedFile
 from ..models import Post, Group, User, Follow
 from ..utils import POST_RESTRICTION
 
 COUNT_OF_POST = 13
-TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
+# TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
 
 class PaginatorViewsTest(TestCase):
@@ -193,8 +190,8 @@ class PostViewsTest(TestCase):
         self.assertEqual(len(response.context['page_obj']), 0)
 
 
-@override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
-class PostViewsImageTests(TestCase):
+# @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
+class PostViewsImageTests(TestCaseWithTmpMedia):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -222,10 +219,10 @@ class PostViewsImageTests(TestCase):
                                        text='Example text',
                                        group=cls.group)
 
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
+    # @classmethod
+    # def tearDownClass(cls):
+    #     super().tearDownClass()
+    #     shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         self.guest_client = Client()

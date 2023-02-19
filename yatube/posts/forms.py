@@ -5,7 +5,7 @@ from .models import Post, Comment
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['text', 'group', 'image']
+        fields = ('text', 'group', 'image')
         error_messages = {'text': {'required': 'Текст поста обязателен!'}}
 
 
