@@ -1,3 +1,11 @@
-# hw05_final
+# Проект сайта на DJANGO
 
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+Данный проект - это реализация сайта, которые имеет такой функционал:
+- Регистрация пользователей
+- Создание/редактирование/удаление постов
+- Подписка/отписка на авторов
+- Комментирование записей
+
+Для реализации данного проекта использовался фреймворк Django, БД SqLite3.
+
+Ссылка на сайт - http://ddanielleinadd.pythonanywhere.com/
